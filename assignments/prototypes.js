@@ -39,8 +39,8 @@ function CharacterStats (props) {
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function () {
-  this.healthPoints--;
+CharacterStats.prototype.takeDamage = function (damage) {
+  this.healthPoints = this.healthPoints - damage;
   return `${this.name} took damage.`;
 }
 
@@ -124,18 +124,83 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage(3)); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  function Villain (props) {
+    Humanoid.call(this, props);
+  }
+  Villain.prototype = Object.assign(Humanoid.prototype);
+  
+  function Hero (props) {
+    Humanoid.call(this, props);
+  }
+  Hero.prototype = Object.assign(Humanoid.prototype);
+
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  Villain.prototype.evilBeam = function (target) {
+    this.target = target;
+    target.takeDamage(5); // TODO: Change to random
+    if (target.healthPoints <= 0) {
+      target.destroy();
+    }
+  };
+
+  Hero.prototype.acidBreath = function (target) {
+    this.target = target;
+    target.takeDamage(5); // TODO: Change to random
+    if (target.healthPoints <= 0) {
+      target.destroy();
+      return `${this.name} has won the battle!`;
+    }
+    return `${this.name} has damaged ${this.target.name}`;
+  };
+
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  const Trok = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 7,
+    },
+    healthPoints: 20,
+    name: 'Trok',
+    team: 'Good Guys',
+    weapons: [
+      'Battleaxe',
+      'Acid Breath',
+    ],
+    language: 'Draconic',
+  });
+
+  const Verc = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    healthPoints: 20,
+    name: 'Verc',
+    team: 'Bad Guys',
+    weapons: [
+      'Claws',
+      'evilBeam'
+    ],
+    language: 'Common',
+  });
+
+  // TODO: implement while loop until there is a winner
+  console.log(Trok.acidBreath(Verc));
