@@ -148,27 +148,32 @@ Humanoid.prototype.greet = function () {
   Hero.prototype = Object.assign(Humanoid.prototype);
 
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // NOTE: Should probably create an 'Atack' constructor and then assign new Attacks to the hero and villain, but pair programming has left me no time
   Villain.prototype.evilBeam = function (target) {
     this.target = target;
-    target.takeDamage(5); // TODO: Change to random
-    if (target.healthPoints <= 0) {
-      target.destroy();
-    }
-  };
-
-  Hero.prototype.acidBreath = function (target) {
-    this.target = target;
-    target.takeDamage(5); // TODO: Change to random
+    this.damage = Math.floor(Math.random() * 10);
+    target.takeDamage(this.damage);
     if (target.healthPoints <= 0) {
       target.destroy();
       return `${this.name} has won the battle!`;
     }
-    return `${this.name} has damaged ${this.target.name}`;
+    return `${this.name} hit ${this.target.name} for ${this.damage}`;
+  };
+
+  Hero.prototype.acidBreath = function (target) {
+    this.target = target;
+    this.damage = Math.floor(Math.random() * 10);
+    target.takeDamage(this.damage);
+    if (target.healthPoints <= 0) {
+      target.destroy();
+      return `${this.name} has won the battle!`;
+    }
+    return `${this.name} hit ${this.target.name} for ${this.damage}`;
   };
 
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
-  const Trok = new Hero({
+  let Trok = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -203,5 +208,5 @@ Humanoid.prototype.greet = function () {
   });
 
   // TODO: implement while loop until there is a winner
-  console.log(Trok.acidBreath(Verc));
+  console.log(Trok.acidBreath(Verc), `Vercs health is now ${Verc.healthPoints}`);
   console.log(Verc.healthPoints);
