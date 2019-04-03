@@ -3,7 +3,7 @@
 * INEW!
 * 1. Implicit `this` will 'implicitly' point to the highest parent object from the referenced scope
 * 2. new will bind `this` to that instantiated class object
-* 3. Explicit `this` will bind to the object 'explicitly' specified through call, apply, bind
+* 3. Explicit `this` will bind to a function 'explicitly' specified through call, apply, bind
 * 4. Window if there is no implicit object binding found, `this` will point to the window object
 *
 * write out a code example of each explanation above
