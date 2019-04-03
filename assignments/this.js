@@ -22,11 +22,9 @@ this.document;
 // Principle 3
 
 // code example for New Binding
-class Person {
-  constructor (props) {
-    this.name = props.name;
-  }
-  speak() {
+function Person (props) {
+  this.name = props.name;
+  this.speak = function () {
     console.log(`Hello world, my name is ${this.name}.`);
   }
 }
@@ -38,4 +36,4 @@ arron.speak();
 // Principle 4
 
 // code example for Explicit Binding
-const jimbob = arron.speak.call({ name: "Jim" });
+arron.speak.call({ name: "Jim" });

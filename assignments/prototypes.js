@@ -204,3 +204,4 @@ Humanoid.prototype.greet = function () {
 
   // TODO: implement while loop until there is a winner
   console.log(Trok.acidBreath(Verc));
+  console.log(Verc.healthPoints);
