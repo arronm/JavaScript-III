@@ -17,7 +17,12 @@ this.document;
 // Principle 2
 
 // code example for Implicit Binding
-
+const person = {
+  name: 'Arron',
+  speak: function () {
+    console.log(`Hello world, my name is ${this.name}`);
+  }
+}
 
 // Principle 3
 
@@ -29,11 +34,11 @@ function Person (props) {
   }
 }
 
-const arronName = { name: "Arron" }
+const arronName = { name: 'Arron' };
 const arron = new Person(arronName);
 arron.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
-arron.speak.call({ name: "Jim" });
+arron.speak.call({ name: 'Jim' });
