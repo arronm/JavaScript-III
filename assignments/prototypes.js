@@ -124,16 +124,16 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
-  // console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.healthPoints); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.team); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage(3)); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.createdAt); // Today's date
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.healthPoints); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.team); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage(3)); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
@@ -148,7 +148,7 @@ Humanoid.prototype.greet = function () {
   Hero.prototype = Object.assign(Humanoid.prototype);
 
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // NOTE: Should probably create an 'Atack' constructor and then assign new Attacks to the hero and villain, but pair programming has left me no time
+  // NOTE: Should probably create an 'Attack' constructor or object property and then assign new Attacks to the hero and villain, but pair programming has left me no time
   Villain.prototype.evilBeam = function (target) {
     this.target = target;
     this.damage = Math.floor(Math.random() * 10);
@@ -197,7 +197,7 @@ Humanoid.prototype.greet = function () {
       width: 2,
       height: 5,
     },
-    healthPoints: 20,
+    healthPoints: 20, /*?*/
     name: 'Verc',
     team: 'Bad Guys',
     weapons: [
@@ -208,5 +208,11 @@ Humanoid.prototype.greet = function () {
   });
 
   // TODO: implement while loop until there is a winner
-  console.log(Trok.acidBreath(Verc), `Vercs health is now ${Verc.healthPoints}`);
-  console.log(Verc.healthPoints);
+  while (Trok.healthPoints > 0 && Verc.healthPoints > 0) {
+    if (Trok.acidBreath(Verc).match('won the battle!')) {
+      console.log('Trok has valiantly won the battle!');
+    } else if (Verc.evilBeam(Trok).match('won the battle!')) {
+      console.log('Oh no! Our hero, Trok, has been defeated by the evil villain Verc! Who will protect us now, take cover in your homes!');
+    }
+    console.log(`Trok's health: ${Trok.healthPoints}, Verc's health: ${Verc.healthPoints}`);
+  }

@@ -20,9 +20,12 @@ this.document;
 const person = {
   name: 'Arron',
   speak: function () {
-    console.log(`Hello world, my name is ${this.name}`);
+    return `Hello implicit, my name is ${this.name}`;
   }
 }
+
+// Console Log for you Jamie!
+console.log(person.speak());
 
 // Principle 3
 
@@ -30,15 +33,15 @@ const person = {
 function Person (props) {
   this.name = props.name;
   this.speak = function () {
-    console.log(`Hello world, my name is ${this.name}.`);
+    return `Hello new, my name is ${this.name}.`;
   }
 }
 
-const arronName = { name: 'Arron' };
-const arron = new Person(arronName);
-arron.speak();
+// Console Log for you Jamie!
+const arron = new Person({ name: 'Arron' });
+console.log(arron.speak());
 
 // Principle 4
 
 // code example for Explicit Binding
-arron.speak.call({ name: 'Jim' });
+console.log(arron.speak.call({ name: 'Jim' }));
